@@ -113,7 +113,7 @@
         .hero::before {
             content: '';
             position: absolute; inset: 0;
-            background: url('hero.webp') center/cover no-repeat;
+            background: url('hero.png') center/cover no-repeat;
             z-index: 0;
         }
         .hero::after {
@@ -154,7 +154,7 @@
 
         .hero-stats {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 24px; margin-top: 50px;
         }
         .hero-stat { text-align: center; }
@@ -434,8 +434,8 @@
     <!-- ── Navigation ─────────────────────────────────────────── -->
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#">
-                <img src="safety-watcher.webp" alt="Safety Watcher" class="brand-logo">
+            <a class="navbar-brand" href="#hero">
+                <img src="safety-watcher.png" alt="Safety Watcher" class="brand-logo">
                 Safety Watcher
             </a>
 
@@ -448,14 +448,15 @@
                     <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
                     <li class="nav-item"><a class="nav-link" href="#how-it-works">How It Works</a></li>
                     <li class="nav-item"><a class="nav-link" href="#detections">Detection</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
                 </ul>
-                <a href="#contact" class="btn-nav-primary ms-3">Contact Us</a>
+                <a href="http://smartsafevision.com/" class="btn-nav-primary ms-3">Try Safety Watcher</a>
             </div>
         </div>
     </nav>
 
     <!-- ── Hero ───────────────────────────────────────────────── -->
-    <section class="hero">
+    <section class="hero" id="hero">
         <div class="floating-elements">
             <i class="fas fa-fire floating-icon"></i>
             <i class="fas fa-video floating-icon"></i>
@@ -466,8 +467,8 @@
             <div class="row">
                 <div class="col-lg-7">
                     <div class="hero-content fade-in">
-                        <h1>Detect <span>Fire & Smoke</span> Before It's Too Late</h1>
-                        <p>Safety Watcher watches every camera, every second — so your team never has to. The moment fire or smoke appears, the right people are alerted and ready to act.</p>
+                        <h1>Detect <span>Incidents</span> Before It's Too Late</h1>
+                        <p>Safety Watcher watches every camera, every second — so your team never has to. The moment an incident is detected, the right people are alerted and ready to act.</p>
 
                         <div class="d-flex gap-3 flex-wrap">
                             <a href="http://localhost" class="btn-nav-primary" style="padding: 13px 32px; font-size: 1rem;">
@@ -626,6 +627,12 @@
                         <p>Detects smoke before flames appear — giving your team critical extra minutes to respond, evacuate, and prevent a small incident from becoming a disaster.</p>
                         <span class="det-threshold">Maximum Sensitivity</span>
                     </div>
+                    <div class="det-item intrus fade-in">
+                        <i class="fas fa-user-secret"></i>
+                        <h5>Intrusion & Other Incidents</h5>
+                        <p>Detects unauthorized access, physical altercations, and unresponsive individuals — alerting your team before situations escalate.</p>
+                        <span class="det-threshold">Always Watching</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -641,10 +648,6 @@
             </div>
 
             <div class="stats-grid">
-                <div class="stat-item fade-in">
-                    <span class="stat-number">2</span>
-                    <div class="stat-label">Detection Classes</div>
-                </div>
                 <div class="stat-item fade-in">
                     <span class="stat-number">24/7</span>
                     <div class="stat-label">Continuous Monitoring</div>
@@ -686,10 +689,10 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <div class="footer-logo">
-                        <img src="safety-watcher.webp" alt="Safety Watcher">
+                        <img src="safety-watcher.png" alt="Safety Watcher">
                         Safety Watcher
                     </div>
-                    <p>AI-powered fire and smoke detection that protects your people, your assets, and your business — automatically, around the clock.</p>
+                    <p>AI-powered Incidents detection that protects your people, your assets, and your business — automatically, around the clock.</p>
                 </div>
                 <div class="footer-section">
                     <h5>Features</h5>
@@ -703,12 +706,11 @@
                     <h5>Detection</h5>
                     <a href="#detections">Fire Detection</a>
                     <a href="#detections">Smoke Detection</a>
+                    <a href="#detections">Intrusion & Other Incidents</a>
                 </div>
                 <div class="footer-section">
                     <h5>Quick Links</h5>
-                    <a href="http://localhost">Dashboard</a>
-                    <a href="http://localhost:3000">Grafana</a>
-                    <a href="http://localhost:9001">MinIO Console</a>
+                    <a href="http://smartsafevision.com/">Try Safety Watcher</a>
                     <a href="#contact">Contact</a>
                 </div>
             </div>
