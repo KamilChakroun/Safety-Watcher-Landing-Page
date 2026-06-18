@@ -430,15 +430,25 @@
         }
 
         /* ── Demo Video Modal ───────────────────────────────────── */
-        #demoModal .modal-dialog {
-            max-width: min(960px, 92vw);
+        .demo-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 1055;
+            background: rgba(5, 15, 35, 0.88);
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
         }
+        .demo-overlay.active { display: flex; }
         .demo-modal-content {
+            width: min(880px, 92vw);
             background: #0a1628;
             border: 1px solid rgba(94,156,213,0.18);
             border-radius: 18px;
             overflow: hidden;
-            box-shadow: 0 40px 100px rgba(0,0,0,0.6), 0 0 0 1px rgba(94,156,213,0.08);
+            box-shadow: 0 40px 100px rgba(0,0,0,0.6);
+            animation: modal-scale-in 0.28s cubic-bezier(0.34, 1.4, 0.64, 1) both;
         }
         .demo-modal-header {
             display: flex;
@@ -455,7 +465,6 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            letter-spacing: 0.01em;
         }
         .demo-modal-close {
             background: rgba(255,255,255,0.08);
@@ -477,19 +486,17 @@
         }
         .demo-modal-video-wrap {
             position: relative;
-            padding-bottom: 56.25%; /* 16:9 */
+            overflow: hidden;
+            padding-bottom: 56.25%;
             height: 0;
             background: #000;
         }
         .demo-modal-video-wrap iframe {
             position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
+            top: -60px; left: 0;
+            width: 100%;
+            height: calc(100% + 60px);
             border: 0;
-        }
-        .modal-backdrop.show { opacity: 0.82; }
-        #demoModal .modal-dialog {
-            animation: modal-scale-in 0.28s cubic-bezier(0.34, 1.4, 0.64, 1) both;
         }
         @keyframes modal-scale-in {
             from { transform: scale(0.88); opacity: 0; }
@@ -539,7 +546,7 @@
                         <p>Safety Watcher watches every camera, every second — so your team never has to. The moment an incident is detected, the right people are alerted and ready to act.</p>
 
                         <div class="d-flex gap-3 flex-wrap">
-                            <button type="button" class="btn-nav-primary" data-bs-toggle="modal" data-bs-target="#demoModal" style="padding: 13px 32px; font-size: 1rem; border: none; cursor: pointer;">
+                            <button type="button" class="btn-nav-primary" onclick="openDemoModal()" style="padding: 13px 32px; font-size: 1rem; border: none; cursor: pointer;">
                                 <i class="fas fa-play me-2"></i>Open demo
                             </button>
                             <a href="#features" class="btn-outline-light btn-lg">
@@ -789,27 +796,19 @@
     </footer>
 
     <!-- ── Demo Video Modal ──────────────────────────────────── -->
-    <div class="modal fade" id="demoModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="demo-modal-content">
-                <div class="demo-modal-header">
-                    <div class="demo-modal-title">
-                        <i class="fas fa-play-circle"></i>
-                        Safety Watcher &mdash; Live Demo
-                    </div>
-                    <button type="button" class="demo-modal-close" data-bs-dismiss="modal" aria-label="Close">
-                        <i class="fas fa-times"></i>
-                    </button>
+    <div id="demoModal" class="demo-overlay" onclick="if(event.target===this)closeDemoModal()">
+        <div class="demo-modal-content">
+            <div class="demo-modal-header">
+                <div class="demo-modal-title">
+                    <i class="fas fa-play-circle"></i>
+                    Safety Watcher &mdash; Live Demo
                 </div>
-                <div class="demo-modal-video-wrap">
-                    <iframe
-                        id="demoVideo"
-                        src="https://www.youtube.com/embed/jVVbNa6znIM?rel=0&modestbranding=1"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen
-                        title="Safety Watcher Demo">
-                    </iframe>
-                </div>
+                <button type="button" class="demo-modal-close" onclick="closeDemoModal()" aria-label="Close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="demo-modal-video-wrap">
+                <iframe id="demoVideo" src="https://drive.google.com/file/d/1tCzNWdclFLEbHIdnHWNYGuE6OqlItKnI/preview" allow="autoplay" allowfullscreen></iframe>
             </div>
         </div>
     </div>
@@ -871,10 +870,18 @@
         }, { threshold: 0.5 });
         document.querySelectorAll('.stat-item').forEach(el => statsObserver.observe(el));
 
-        // Stop YouTube video when demo modal is closed
-        document.getElementById('demoModal').addEventListener('hidden.bs.modal', function() {
+        function openDemoModal() {
+            document.getElementById('demoModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeDemoModal() {
+            document.getElementById('demoModal').classList.remove('active');
+            document.body.style.overflow = '';
             const iframe = document.getElementById('demoVideo');
             iframe.src = iframe.src;
+        }
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeDemoModal();
         });
     </script>
 </body>
